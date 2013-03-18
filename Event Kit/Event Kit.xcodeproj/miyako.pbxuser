@@ -72,16 +72,16 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 384826044;
-			PBXWorkspaceStateSaveDate = 384826044;
+			PBXPerProjectTemplateStateSaveDate = 385301011;
+			PBXWorkspaceStateSaveDate = 385301011;
 		};
 		perUserProjectItems = {
-			D1829B3D16F002D40023A998 /* XCBuildMessageTextBookmark */ = D1829B3D16F002D40023A998 /* XCBuildMessageTextBookmark */;
+			D164173316F73A1B00377EA3 /* PBXTextBookmark */ = D164173316F73A1B00377EA3 /* PBXTextBookmark */;
+			D164173616F73A1B00377EA3 /* PBXTextBookmark */ = D164173616F73A1B00377EA3 /* PBXTextBookmark */;
+			D164173716F73A1B00377EA3 /* PBXTextBookmark */ = D164173716F73A1B00377EA3 /* PBXTextBookmark */;
 			D1829B4816F003F20023A998 /* PBXTextBookmark */ = D1829B4816F003F20023A998 /* PBXTextBookmark */;
 			D1829B4916F003F20023A998 /* PBXTextBookmark */ = D1829B4916F003F20023A998 /* PBXTextBookmark */;
-			D1829B4A16F003F20023A998 /* XCBuildMessageTextBookmark */ = D1829B4A16F003F20023A998 /* XCBuildMessageTextBookmark */;
 			D1829B5B16F003F20023A998 /* PBXTextBookmark */ = D1829B5B16F003F20023A998 /* PBXTextBookmark */;
-			D1829B5F16F003F20023A998 /* PBXTextBookmark */ = D1829B5F16F003F20023A998 /* PBXTextBookmark */;
 			D1829B7A16F005B20023A998 /* PBXTextBookmark */ = D1829B7A16F005B20023A998 /* PBXTextBookmark */;
 			D1829B7B16F005B20023A998 /* PBXTextBookmark */ = D1829B7B16F005B20023A998 /* PBXTextBookmark */;
 			D1829B7C16F005B20023A998 /* PBXTextBookmark */ = D1829B7C16F005B20023A998 /* PBXTextBookmark */;
@@ -141,14 +141,47 @@
 			sepNavWindowFrame = "{{526, 85}, {706, 792}}";
 		};
 	};
-	D1829B3D16F002D40023A998 /* XCBuildMessageTextBookmark */ = {
+	D164173316F73A1B00377EA3 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		comments = "Too many arguments to function 'BOOL _CALENDAR_Remove(C_TEXT&)'";
 		fRef = D1C8700F16EB5A18007A272F /* functions_ekit.h */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 152;
-		rType = 1;
+		name = "functions_ekit.h: 160";
+		rLen = 0;
+		rLoc = 6077;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	D164173616F73A1B00377EA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D1C8700F16EB5A18007A272F /* functions_ekit.h */;
+		name = "functions_ekit.h: 153";
+		rLen = 0;
+		rLoc = 5668;
+		rType = 0;
+		vrLen = 2217;
+		vrLoc = 6965;
+	};
+	D164173716F73A1B00377EA3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D164173816F73A1B00377EA3 /* time.h */;
+		name = "time.h: 118";
+		rLen = 47;
+		rLoc = 4410;
+		rType = 0;
+		vrLen = 1582;
+		vrLoc = 3561;
+	};
+	D164173816F73A1B00377EA3 /* time.h */ = {
+		isa = PBXFileReference;
+		name = time.h;
+		path = /Xcode3/SDKs/MacOSX10.6.sdk/usr/include/time.h;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {873, 2223}}";
+			sepNavSelRange = "{4410, 47}";
+			sepNavVisRange = "{3561, 1582}";
+			sepNavWindowFrame = "{{15, 141}, {639, 732}}";
+		};
 	};
 	D1829B4816F003F20023A998 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -170,15 +203,6 @@
 		vrLen = 0;
 		vrLoc = 0;
 	};
-	D1829B4A16F003F20023A998 /* XCBuildMessageTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "Too many arguments to function 'BOOL _CALENDAR_Get_rgb_color(C_TEXT&, C_REAL&, C_REAL&, C_REAL&)'";
-		fRef = D1C8700F16EB5A18007A272F /* functions_ekit.h */;
-		fallbackIsa = XCBuildMessageTextBookmark;
-		rLen = 1;
-		rLoc = 159;
-		rType = 1;
-	};
 	D1829B5B16F003F20023A998 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = D1C8701016EB5A18007A272F /* functions_ekit.mm */;
@@ -188,26 +212,6 @@
 		rType = 0;
 		vrLen = 1176;
 		vrLoc = 13345;
-	};
-	D1829B5F16F003F20023A998 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = D1829B6016F003F20023A998 /* time.h */;
-		rLen = 1;
-		rLoc = 117;
-		rType = 1;
-	};
-	D1829B6016F003F20023A998 /* time.h */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.h;
-		name = time.h;
-		path = /Xcode3/SDKs/MacOSX10.6.sdk/usr/include/time.h;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {873, 2197}}";
-			sepNavSelRange = "{4410, 47}";
-			sepNavVisRange = "{3561, 1582}";
-			sepNavWindowFrame = "{{15, 141}, {639, 732}}";
-		};
 	};
 	D1829B7A16F005B20023A998 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -241,6 +245,7 @@
 	};
 	D1829B7D16F005B20023A998 /* time.h */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
 		name = time.h;
 		path = /Xcode3/SDKs/MacOSX10.6.sdk/usr/include/time.h;
 		sourceTree = "<absolute>";
@@ -255,9 +260,9 @@
 	};
 	D1C8700F16EB5A18007A272F /* functions_ekit.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {12, 2886}}";
-			sepNavSelRange = "{6077, 0}";
-			sepNavVisRange = "{0, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {915, 3133}}";
+			sepNavSelRange = "{5668, 0}";
+			sepNavVisRange = "{6965, 2217}";
 			sepNavWindowFrame = "{{7, 84}, {933, 794}}";
 		};
 	};
