@@ -19,7 +19,7 @@
       <param position="2" k="20000"/>
    </command>
    <command name="EK CALENDAR Create" str="20000" topic="13">
-      <param position="2" k="20002"/>
+      <param position="2" k="20000"/>
    </command>
    <command name="EK EVENT Get status" str="20000" topic="56">
       <param position="2" k="20001"/>

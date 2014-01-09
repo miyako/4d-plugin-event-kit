@@ -164,6 +164,21 @@
 	}
 }
 
+- (BOOL)_saveItem:(EKCalendarItem *)item
+{
+    if(item)
+    {
+        if([item isKindOfClass:[EKEvent class]])
+            if([self _saveEvent:(EKEvent *)item])
+                return TRUE;
+        
+        if([item isKindOfClass:[EKReminder class]])
+            if([self _saveReminder:(EKReminder *)item])
+                return TRUE;    
+    }
+    return FALSE;
+}
+
 - (NSArray *)_createCalendarFromIdentifiers:(NSArray *)identifiers
 {
 	
@@ -435,7 +450,8 @@
 		NSLog(@"'%@' is not a calendar", identifier);		
 	}else{
 		calendar.title = title;
-		return [NSNumber numberWithInt:0];
+        if([self _saveCalendar:calendar])
+            return [NSNumber numberWithInt:0];
 	}	
 	
 	return [NSNumber numberWithInt:-1];
@@ -487,7 +503,8 @@
 		NSLog(@"'%@' is not a calendar", identifier);
 	}else{
 		calendar.color = color;
-		return [NSNumber numberWithInt:0];
+        if([self _saveCalendar:calendar])
+            return [NSNumber numberWithInt:0];
 	}
 	
 	return [NSNumber numberWithInt:-1];
@@ -510,7 +527,7 @@
 	}else{
 		EKReminder *reminder = [EKReminder reminderWithEventStore:sharedEventStore];
 		reminder.calendar = calendar;
-		
+		        
 		if([self _saveReminder:reminder])
 			return [reminder calendarItemIdentifier];
 	}
@@ -520,21 +537,13 @@
 
 - (NSNumber *)saveReminder:(NSString *)identifier
 {
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
-	
+	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+    
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
-	}else{
-		if([item isKindOfClass:[EKReminder class]]){
-			
-			EKReminder *reminder = item;
-			
-			if([self _saveReminder:reminder])
-				return [NSNumber numberWithInt:0];
-			
-		}else{
-			NSLog(@"'%@' is not a reminder", identifier);
-		}
+	}else{			        
+        if([self _saveItem:item])
+            return [NSNumber numberWithInt:0];
 	}
 	
 	return [NSNumber numberWithInt:-1];	
@@ -593,7 +602,9 @@
 			
 			EKReminder *reminder = item;
 			reminder.startDateComponents = [gregorianCalendar components:dateComponentUnits fromDate:date];
-			return [NSNumber numberWithInt:0];
+			
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 			
 		}else{
 			NSLog(@"'%@' is not a reminder", identifier);
@@ -634,7 +645,9 @@
 			
 			EKReminder *reminder = item;
 			reminder.dueDateComponents = [gregorianCalendar components:dateComponentUnits fromDate:date];
-			return [NSNumber numberWithInt:0];
+			
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 			
 		}else{
 			NSLog(@"'%@' is not a reminder", identifier);
@@ -677,7 +690,9 @@
 			EKReminder *reminder = item;
 
 			reminder.completionDate = date;
-			return [NSNumber numberWithInt:0];
+            
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 			
 		}else{
 			NSLog(@"'%@' is not a reminder", identifier);
@@ -704,9 +719,13 @@
 	}else{
 		EKEvent *event = [EKEvent eventWithEventStore:sharedEventStore];
 		event.calendar = calendar;
-		
-		if([self _saveEvent:event])
-			return [event calendarItemIdentifier];
+        
+        //mandatory properties to perform save
+        event.startDate = [NSDate date];
+        event.endDate = [NSDate date];
+        
+        if([self _saveEvent:event])
+            return [event calendarItemIdentifier];
 	}		
 	
 	return @"";		
@@ -714,21 +733,14 @@
 
 - (NSNumber *)saveEvent:(NSString *)identifier
 {
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
-	
+    EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+    
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isMemberOfClass:[EKEvent class]]){
-			
-			EKEvent *event = item;
-			
-			if([self _saveEvent:event])
-				return [NSNumber numberWithInt:0];
-			
-		}else{
-			NSLog(@"'%@' is not an event", identifier);
-		}
+
+		if([self _saveItem:item])
+            return [NSNumber numberWithInt:0];
 	}
 	
 	return [NSNumber numberWithInt:-1];
@@ -741,7 +753,7 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
 			
@@ -763,9 +775,10 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
+            
 			return event.startDate;
 			
 		}else{
@@ -783,11 +796,14 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
+            
 			event.startDate = date;
-			return [NSNumber numberWithInt:0];
+            
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 			
 		}else{
 			NSLog(@"'%@' is not an event", identifier);
@@ -804,9 +820,10 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
+            
 			return event.endDate;
 			
 		}else{
@@ -824,11 +841,14 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
+            
 			event.endDate = date;
-			return [NSNumber numberWithInt:0];
+            
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 			
 		}else{
 			NSLog(@"'%@' is not an event", identifier);
@@ -845,9 +865,10 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
+            
 			return event.occurrenceDate;
 			
 		}else{
@@ -865,7 +886,7 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
 
@@ -886,7 +907,7 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
 			
@@ -907,11 +928,14 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
+            
 			event.allDay = [allDay intValue];
-			return [NSNumber numberWithInt:0];
+            
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 			
 		}else{
 			NSLog(@"'%@' is not an event", identifier);
@@ -928,7 +952,7 @@
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
-		if([item isKindOfClass:[EKReminder class]]){
+		if([item isKindOfClass:[EKEvent class]]){
 			
 			EKEvent *event = item;
 			
@@ -967,8 +991,11 @@
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
 	}else{
+        
 		item.title = title;
-		return [NSNumber numberWithInt:0];
+        
+        if([self _saveItem:item])
+            return [NSNumber numberWithInt:0];
 	}
 	
 	return [NSNumber numberWithInt:-1];	
@@ -1000,7 +1027,9 @@
 			NSLog(@"'%@' is not a calendar", calendar);
 		}else{
 			item.calendar = itemCalendar;
-			return [NSNumber numberWithInt:0];
+            
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 		}
 	}
 	
@@ -1028,7 +1057,9 @@
 		NSLog(@"'%@' is not a calendar item", identifier);
 	}else{
 		item.location = location;
-		return [NSNumber numberWithInt:0];
+        
+        if([self _saveItem:item])
+            return [NSNumber numberWithInt:0];
 	}
 	
 	return [NSNumber numberWithInt:-1];		
@@ -1057,7 +1088,9 @@
 		NSURL *URL = [NSURL URLWithString:url];
 		if(URL){
 			item.URL = URL;	
-			return [NSNumber numberWithInt:0];	
+            
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];	
 		}
 	}
 	
@@ -1085,7 +1118,9 @@
 		NSLog(@"'%@' is not a calendar item", identifier);
 	}else{
 		item.notes = notes;
-		return [NSNumber numberWithInt:0];
+        
+        if([self _saveItem:item])
+            return [NSNumber numberWithInt:0];
 	}
 	
 	return [NSNumber numberWithInt:-1];	
@@ -1360,7 +1395,6 @@
 	return itemRules;		
 }
 
-
 - (NSNumber *)setRules:(NSArray *)rules forItem:(NSString *)identifier
 {
 	return [NSNumber numberWithInt:-1];
@@ -1392,7 +1426,9 @@
 		NSTimeZone *tz = [NSTimeZone timeZoneWithAbbreviation:zone];
 		if(tz){
 			item.timeZone = tz;
-			return [NSNumber numberWithInt:0];
+            
+            if([self _saveItem:item])
+                return [NSNumber numberWithInt:0];
 		}		
 	}
 	
