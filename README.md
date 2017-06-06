@@ -246,3 +246,325 @@ Parameter|Type|Description
 objectId      | TEXT|
 
 Method applies to source, calendar, event or reminder.
+
+```
+success:=EK ITEM Get alarms (itemId; alarmJsons)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+alarmJsons        |ARRAY TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get attendee names (itemId; attendeeNames)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+attendeeNames         |ARRAY TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get attendees (itemId; attendeeJsons)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+attendeeNames         |ARRAY TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get calendar (itemId; calendarId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+calendarId          | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get location (itemId; location)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+location           | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get modification date (itemId; modificationDate; modificationTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+modificationDate            | DATE|
+modificationTime             | TIME|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get notes (itemId; notes)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+notes             | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get rules (itemId; ruleJsons)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+ruleJsons              |ARRAY TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get timezone (itemId; timezone)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+timezone               | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get title (itemId; title)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+title                | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Get url (itemId; url)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+url                 | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set alarms (itemId; alarmJsons)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+alarmJsons                  |ARRAY TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set calendar (itemId; calendarId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+calendarId                   | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set location (itemId; location)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+location                    | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set notes (itemId; notes)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+notes                     | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set rules (itemId; ruleJsons)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+ruleJsons                      |ARRAY TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set timezone (itemId; timezone)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+timezone                       | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set title (itemId; title)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+title                        | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+success:=EK ITEM Set url (itemId; url)
+```
+
+Parameter|Type|Description
+------------|------------|----
+itemId       | TEXT|
+url                         | TEXT|
+success        | LONGINT|
+
+Method applies to event or reminder.
+
+```
+reminderId:=EK REMINDER Create (calendarId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId| TEXT|
+reminderId| TEXT|
+
+```
+success:=EK REMINDER Get completed date (reminderId; completedDate; completedTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+completedDate | DATE|
+completedTime  | TIME|
+success   | LONGINT|
+
+```
+success:=EK REMINDER Get due date (reminderId; dueDate; dueTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+dueDate  | DATE|
+dueTime   | TIME|
+success   | LONGINT|
+
+```
+success:=EK REMINDER Get start date (reminderId; startDate; startTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+startDate   | DATE|
+startTime    | TIME|
+success   | LONGINT|
+
+```
+success:=EK REMINDER Remove (reminderId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+success   | LONGINT|
+
+```
+success:=EK REMINDER Save (reminderId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+success   | LONGINT|
+
+```
+success:=EK REMINDER Set completed date (reminderId; completedDate; completedTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+completedDate  | DATE|
+completedTime   | TIME|
+success   | LONGINT|
+
+```
+success:=EK REMINDER Set due date (reminderId; dueDate; dueTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+dueDate   | DATE|
+dueTime    | TIME|
+success   | LONGINT|
+
+```
+success:=EK REMINDER Set start date (reminderId; startDate; startTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+reminderId | TEXT|
+startDate    | DATE|
+startTime     | TIME|
+success   | LONGINT|
