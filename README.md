@@ -568,3 +568,199 @@ reminderId | TEXT|
 startDate    | DATE|
 startTime     | TIME|
 success   | LONGINT|
+
+```
+eventId:=EK EVENT Create (calendarId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId  | TEXT|
+eventId     | TEXT|
+
+```
+success:=EK EVENT Get all day (eventId; isAllDay)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+isAllDay      | LONGINT|
+success      | LONGINT|
+
+```
+success:=EK EVENT Get end date (eventId; endDate; endTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+endDate       | DATE|
+endTime        | TIME|
+success      | LONGINT|
+
+```
+success:=EK EVENT Get occurrence date (eventId; occurrenceDate; occurrenceTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+occurrenceDate        | DATE|
+occurrenceTime         | TIME|
+success      | LONGINT|
+
+This property is read-only.
+
+```
+success:=EK EVENT Get organizer name (eventId; organizerName)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+organizerName         | TEXT|
+success      | LONGINT|
+
+This property is read-only.
+
+```
+success:=EK EVENT Get start date (eventId; startDate; startTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+startDate          | DATE|
+startTime           | TIME|
+success      | LONGINT|
+
+This property is read-only.
+
+```
+success:=EK EVENT Get status (eventId; status)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+status            | LONGINT|``EK Status Type``
+success      | LONGINT|
+
+This property is read-only.
+
+```
+success:=EK EVENT Remove (eventId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+success      | LONGINT|
+
+```
+success:=EK EVENT Save (eventId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+success      | LONGINT|
+
+```
+success:=EK EVENT Set all day (eventId; isAllDay)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+isAllDay       | LONGINT|
+success      | LONGINT|
+
+```
+success:=EK EVENT Set end date (eventId; endDate; endTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+endDate        | DATE|
+endTime         | TIME|
+success      | LONGINT|
+
+```
+success:=EK EVENT Set start date (eventId; startDate; startTime)
+```
+
+Parameter|Type|Description
+------------|------------|----
+eventId     | TEXT|
+startDate         | DATE|
+startTime          | TIME|
+success      | LONGINT|
+
+```
+EK QUERY COMPLETE REMINDER (startDate; startTime; endDate; endTime; calendarIds; reminderIds)
+```
+
+Parameter|Type|Description
+------------|------------|----
+startDate         | DATE|
+startTime          | TIME|
+endDate        | DATE|
+endTime         | TIME|
+calendarIds       |ARRAY TEXT|
+reminderIds        |ARRAY TEXT|
+
+```
+EK QUERY EVENT (startDate; startTime; endDate; endTime; calendarIds; eventIds)
+```
+
+Parameter|Type|Description
+------------|------------|----
+startDate         | DATE|
+startTime          | TIME|
+endDate        | DATE|
+endTime         | TIME|
+calendarIds       |ARRAY TEXT|
+eventIds         |ARRAY TEXT|
+
+```
+EK QUERY INCOMPLETE REMINDER (startDate; startTime; endDate; endTime; calendarIds; reminderIds)
+```
+
+Parameter|Type|Description
+------------|------------|----
+startDate         | DATE|
+startTime          | TIME|
+endDate        | DATE|
+endTime         | TIME|
+calendarIds       |ARRAY TEXT|
+reminderIds          |ARRAY TEXT|
+
+### EK Calendar Type
+
+```
+EK Calendar Event (0)
+EK Calendar Reminder (1)
+```
+
+### EK Status Type
+
+```
+EK Status None (0)
+EK Status Confirmed (1)
+EK Status Tentative (2)
+EK Status Canceled (3)
+```
+
+### EK Source Type
+
+```
+EK Source Local (0)
+EK Source Exchange (1)
+EK Source CalDAV or iCloud (2)
+EK Source MobileMe (3)
+EK Source Subscribed (4)
+EK Source Birthdays (5)
+```
