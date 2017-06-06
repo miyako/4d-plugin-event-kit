@@ -23,7 +23,7 @@ Using APIs introduced in 10.8 and deprecated in 10.9.
 Using a Helper Application since EK only supports 64 bits.
 The user must allow the Helper application to access the CalendarStore.
 
-### Syntax
+## Syntax
 
 ```
 success:=EK STORE Commit
@@ -84,6 +84,8 @@ source   |TEXT|
 calendarType  |LONGINT|``EK Calendar Type``
 calendarId   |TEXT|
 
+Specify whether you want to create an event calendar or a reminder calendar.
+
 ```
 success:=EK CALENDAR Get default (calendaType; calendarId)
 ```
@@ -92,3 +94,50 @@ Parameter|Type|Description
 ------------|------------|----
 calendarType  |LONGINT|``EK Calendar Type``
 success |LONGINT|
+
+Specify whether you want the defalut id for event calendar or reminder calendar.
+
+
+```
+success:=EK CALENDAR Get rgb color (calendarId; red; green; blue)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId   |TEXT|
+red    |REAL|
+green    |REAL|
+blue    |REAL|
+success |LONGINT|
+
+```
+success:=EK CALENDAR Get source (calendarId; sourceId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId   |TEXT|
+sourceId    |TEXT|
+success    |LONGINT|
+
+The source can't be changed for an existing calendar.
+
+```
+success:=EK CALENDAR Get title (calendarId; title)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId   |TEXT|
+title     |TEXT|
+success    |LONGINT|
+
+```
+success:=EK CALENDAR Get type (calendarId; calendarSourceType)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId   |TEXT|
+calendarSourceType      |LONGINT|``EK Source Type``
+success    |LONGINT|
