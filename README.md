@@ -141,3 +141,108 @@ Parameter|Type|Description
 calendarId   |TEXT|
 calendarSourceType      |LONGINT|``EK Source Type``
 success    |LONGINT|
+
+
+```
+EK CALENDAR LIST (calendarIds; calendaType)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarIds    |ARRAY TEXT|
+calendaType       |LONGINT|``EK Calendar Type``
+
+Specify whether you want the list for event calendars or reminder calendars.
+
+```
+success:=EK CALENDAR Remove (calendarId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId     | TEXT|
+success        |LONGINT|
+
+```
+success:=EK CALENDAR Save (calendarId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId     | TEXT|
+success        |LONGINT|
+
+To validate any changes you need to commit them to the store, not just save or create. Uncommitted objects are not returned by search.
+
+```
+success:=EK CALENDAR Set rgb color (calendarId; red; green; blue)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId     | TEXT|
+success        |LONGINT|
+
+```
+success:=EK CALENDAR Set title (calendarId; title)
+```
+
+Parameter|Type|Description
+------------|------------|----
+calendarId     | TEXT|
+title      | TEXT|
+success        |LONGINT|
+
+```
+success:=EK OBJECT Has changes (objectId; hasChanges)
+```
+
+Parameter|Type|Description
+------------|------------|----
+objectId      | TEXT|
+hasChanges       | LONGINT|
+success        |LONGINT|
+
+Methods applies to source, calendar, event or reminder.
+
+```
+success:=EK OBJECT Is new (objectId; isNew)
+```
+
+Parameter|Type|Description
+------------|------------|----
+objectId      | TEXT|
+isNew        | LONGINT|
+success        |LONGINT|
+
+Method applies to source, calendar, event or reminder.
+
+```
+EK OBJECT REFRESH (objectId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+objectId      | TEXT|
+
+Method applies to store (default), source, calendar, event or reminder.
+
+```
+EK OBJECT RESET (objectId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+objectId      | TEXT|
+
+Method applies to source, calendar, event or reminder.
+
+```
+EK OBJECT ROLLBACK (objectId)
+```
+
+Parameter|Type|Description
+------------|------------|----
+objectId      | TEXT|
+
+Method applies to source, calendar, event or reminder.
