@@ -33,6 +33,7 @@ Instead of using a bridge helper app, the plugin calls the API directly.
 
 ```sh
 tccutil reset Calendar
+tccutil reset Reminders
 ```
 
 <img width="668" alt="registered" src="https://user-images.githubusercontent.com/1725068/27019374-0011ac8c-4f73-11e7-8a3f-0c2b4ec71714.png">
