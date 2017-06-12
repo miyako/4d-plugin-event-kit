@@ -35,9 +35,9 @@ Instead of using a bridge helper app, the plugin calls the API directly.
 tccutil reset Calendar
 ```
 
-<img width="334" alt="registered" src="https://user-images.githubusercontent.com/1725068/27019374-0011ac8c-4f73-11e7-8a3f-0c2b4ec71714.png">
+<img width="668" alt="registered" src="https://user-images.githubusercontent.com/1725068/27019374-0011ac8c-4f73-11e7-8a3f-0c2b4ec71714.png">
 
-<img width="210" alt="request" src="https://user-images.githubusercontent.com/1725068/27019377-04a9fbf0-4f73-11e7-8172-ea356d111fd6.png">
+<img width="420" alt="request" src="https://user-images.githubusercontent.com/1725068/27019377-04a9fbf0-4f73-11e7-8172-ea356d111fd6.png">
 
 Apps are identified by thier UTI, so the name (4D 32-bit in the example above can be misleading).
 
