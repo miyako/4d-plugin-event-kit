@@ -17,11 +17,23 @@ Implementation of 10.8 SDK [Event Kit](https://developer.apple.com/library/ios/d
 
 Please consult the [wiki](https://github.com/miyako/4d-plugin-event-kit/wiki).
 
+## Notes
+
+This is the 64-bit branch.
+
 ## Remarks
 
 Using APIs introduced in 10.8 and deprecated in 10.9.
 ~~Using a Helper Application since EK only supports 64 bits.~~
 ~~The user must allow the Helper application to access the CalendarStore.~~
+
+Instead of using a bridge helper app, the plugin calls the API directly.  
+
+4D must be granted access to Calendar and/or Reminder. The system will ask for your permission the first time the plugin is used. If 4D is already in the list and denied access, it will not ask again. You must enable it in System Preferences. Alternatively, you could clear the list with the command [tccutil](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/tccutil.1.html).
+
+```sh
+tccutil reset Calendar
+```
 
 ## Syntax
 
