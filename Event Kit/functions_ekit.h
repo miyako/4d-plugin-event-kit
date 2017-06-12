@@ -1,7 +1,7 @@
 #include "4DPluginAPI.h"
 
 #define HELPER_REGISTERED_NAME @"eventKitHelper"
-#define THIS_BUNDLE_ID @"com.4D.4DPlugin.miyako.EventKit"
+#define THIS_BUNDLE_ID @"com.4D.4DPlugin.EventKit.1"
 
 @protocol EventKitHelperInterface
 

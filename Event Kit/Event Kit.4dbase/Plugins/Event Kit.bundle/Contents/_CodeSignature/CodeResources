@@ -24,7 +24,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			C+tkAnWzQH04LES2U7cj9SIRGtI=
+			R2Fox7ad+1sqs5O3Phr/T3tWpg8=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -48,89 +48,209 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			ybtoVc4jFpVAfCT3T6eE96QvKt0=
+			H2dIqjJbKnv+pXnecs6GFWENZpc=
 			</data>
 			<key>requirement</key>
-			<string>identifier "Event Kit" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = Y69CWUC25B</string>
+			<string>identifier "Event Kit" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: keisuke miyako (4W9UT59D3B)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>MacOS/EventKitHelper.app</key>
 		<dict>
 			<key>cdhash</key>
 			<data>
-			uBBvRIFYK9s2BWsK8X1TBUP2n/Q=
+			aGbXJ3aDrdY7E6rw+ZSdBlKvyEc=
 			</data>
 			<key>requirement</key>
-			<string>identifier "com.4D.miyako.EventKitHelper" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = Y69CWUC25B</string>
+			<string>identifier "com.4D.miyako.EventKitHelper" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: keisuke miyako (4W9UT59D3B)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
 		<key>MacOS/EventKitHelper.app.dSYM/Contents/Info.plist</key>
-		<data>
-		jLq4qN5i5XjegnyZjgbrTBKsadY=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			jLq4qN5i5XjegnyZjgbrTBKsadY=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZHQ4pAB2BGVlWqmOV0b3C0+QmhVDW2L4DEQUMr9V8pE=
+			</data>
+		</dict>
 		<key>MacOS/EventKitHelper.app.dSYM/Contents/Resources/DWARF/EventKitHelper</key>
-		<data>
-		G6KrvMD2fh+yp7vHQX2g9JllJyE=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			ivBqSeXQHCWDmXkK6ZQKAxPCrtI=
+			</data>
+			<key>hash2</key>
+			<data>
+			oR3zCNtvnUaH/PzOLe/9i377IEmBWSE0jMkfSsG1Bxc=
+			</data>
+		</dict>
+		<key>QuickLook/Thumbnail.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LgsQFORWUNIL+UFexKFa4CiRctg=
+			</data>
+			<key>hash2</key>
+			<data>
+			98jKbUnZvoNXKS37m5JUoBfuRCxC2JzhKP+uHKV6WFc=
+			</data>
+		</dict>
 		<key>Resources/Documentation/CSS/default.css</key>
-		<data>
-		vkG+55Mj7l6KQqrX7FKUwsK5PU0=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			vkG+55Mj7l6KQqrX7FKUwsK5PU0=
+			</data>
+			<key>hash2</key>
+			<data>
+			Bo9j0oDn93BC7qqMkZkUR8CTR5io2pQxumZehEBqalY=
+			</data>
+		</dict>
 		<key>Resources/Documentation/content.html</key>
-		<data>
-		+xFQqN5DlN43BeuzTP88waxJ5go=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			+xFQqN5DlN43BeuzTP88waxJ5go=
+			</data>
+			<key>hash2</key>
+			<data>
+			llusYsabBLdtRHQpJ/il29jz4zDrqLNhvsaT6yMXMQU=
+			</data>
+		</dict>
 		<key>Resources/Documentation/index.html</key>
-		<data>
-		md/jM8WMMh7Ge7Jqg5/1y6MrOr4=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			md/jM8WMMh7Ge7Jqg5/1y6MrOr4=
+			</data>
+			<key>hash2</key>
+			<data>
+			Q0/atgVrlZlH+/7owiMinIo9KIj4lsX4S50djMGu8l0=
+			</data>
+		</dict>
 		<key>Resources/Documentation/toc.html</key>
-		<data>
-		IiE1IJqtl1D3hWfs9qbQ7v/+GBo=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			IiE1IJqtl1D3hWfs9qbQ7v/+GBo=
+			</data>
+			<key>hash2</key>
+			<data>
+			9IH1DGJ3Y80ui2cf0Nv2vbqhYf25khh8+QQr8vfdHD4=
+			</data>
+		</dict>
 		<key>Resources/English.lproj/InfoPlist.strings</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			C+tkAnWzQH04LES2U7cj9SIRGtI=
+			R2Fox7ad+1sqs5O3Phr/T3tWpg8=
+			</data>
+			<key>hash2</key>
+			<data>
+			oodQpnHZwqxSvcEwUOJq2wcOxYNpZusWmnAPSS8uTfo=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
 		<key>Resources/Event Kit.rsrc</key>
-		<data>
-		xk8ao0Tf/Z3aNk0WcnT5+aNkRqA=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			xk8ao0Tf/Z3aNk0WcnT5+aNkRqA=
+			</data>
+			<key>hash2</key>
+			<data>
+			ODPYpOSQKJWGy7LsWnVZFGEfr+E+vi085GxaB/XFw68=
+			</data>
+		</dict>
 		<key>Resources/documentation.xml</key>
-		<data>
-		5DmYRdysTD3UX6PpGauA8CYpOn8=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			5DmYRdysTD3UX6PpGauA8CYpOn8=
+			</data>
+			<key>hash2</key>
+			<data>
+			elU0JLmZd+UXNM7T1/MFBZ8ItBjLqfxb2bT/naLMYUU=
+			</data>
+		</dict>
 		<key>Resources/kmapper.xml</key>
-		<data>
-		NcOn9y6g7m0+RqRYTDzmJHTsKrY=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			NcOn9y6g7m0+RqRYTDzmJHTsKrY=
+			</data>
+			<key>hash2</key>
+			<data>
+			c1TDPP3+MCQ1qcxW5pMi6feUpR7YM2IoEgMediCnbN8=
+			</data>
+		</dict>
 		<key>Windows/Event Kit.4DX</key>
-		<data>
-		EhI2YAPvR/J5Q1zSS+C8ySfcZgs=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			EhI2YAPvR/J5Q1zSS+C8ySfcZgs=
+			</data>
+			<key>hash2</key>
+			<data>
+			qeoUupXKgqkPeanVBQWC56ERAusH6K3sJR3xpGgEdG8=
+			</data>
+		</dict>
 		<key>Windows/Event Kit.RSR</key>
-		<data>
-		39mH/j1/j88p6JR75vApSEWt0Wk=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			39mH/j1/j88p6JR75vApSEWt0Wk=
+			</data>
+			<key>hash2</key>
+			<data>
+			s7Wb7opgNRA2HN7xiaz2heyq/vUHXzMHXQa6pUQk79g=
+			</data>
+		</dict>
 		<key>Windows/Event Kit.htm</key>
-		<data>
-		3f3hE90+GMuzyHmK9RVQvLK+Zs8=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			3f3hE90+GMuzyHmK9RVQvLK+Zs8=
+			</data>
+			<key>hash2</key>
+			<data>
+			EKLRdLPtg+PsdxOrCPdnhlHZLbWCJYLapu/sbQTYgHg=
+			</data>
+		</dict>
 		<key>Windows64/Event Kit.4DX</key>
-		<data>
-		Mc5dUBsJ3BN3vGphl93t6Ox/4mU=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			Mc5dUBsJ3BN3vGphl93t6Ox/4mU=
+			</data>
+			<key>hash2</key>
+			<data>
+			EQZYnmd6+sckNEXcyHSX3ktVcDr5HXamKpSTjPIYTmU=
+			</data>
+		</dict>
 		<key>Windows64/Event Kit.RSR</key>
-		<data>
-		39mH/j1/j88p6JR75vApSEWt0Wk=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			39mH/j1/j88p6JR75vApSEWt0Wk=
+			</data>
+			<key>hash2</key>
+			<data>
+			s7Wb7opgNRA2HN7xiaz2heyq/vUHXzMHXQa6pUQk79g=
+			</data>
+		</dict>
 		<key>Windows64/Event Kit.htm</key>
-		<data>
-		3f3hE90+GMuzyHmK9RVQvLK+Zs8=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			3f3hE90+GMuzyHmK9RVQvLK+Zs8=
+			</data>
+			<key>hash2</key>
+			<data>
+			EKLRdLPtg+PsdxOrCPdnhlHZLbWCJYLapu/sbQTYgHg=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>

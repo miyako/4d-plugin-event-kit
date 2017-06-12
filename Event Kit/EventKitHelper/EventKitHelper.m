@@ -220,9 +220,9 @@
 {	
 	if(![calendars count])
 	{	
-		return [sharedEventStore predicateForIncompleteRemindersWithDueDateStarting:startDate ending:endDate calendars:nil];
+		return [sharedEventStore predicateForCompletedRemindersWithCompletionDateStarting:startDate ending:endDate calendars:nil];
 	}else{
-		return [sharedEventStore predicateForIncompleteRemindersWithDueDateStarting:startDate ending:endDate calendars:calendars];	
+		return [sharedEventStore predicateForCompletedRemindersWithCompletionDateStarting:startDate ending:endDate calendars:calendars];	
 	}	
 }
 
@@ -1386,7 +1386,7 @@
 			if(jsonData){
 				const char *bytes = [jsonData bytes];
 				if(bytes){
-					[itemAlarms addObject:[NSString stringWithUTF8String:bytes]];
+					[itemRules addObject:[NSString stringWithUTF8String:bytes]];
 				}
 			}			
 		}

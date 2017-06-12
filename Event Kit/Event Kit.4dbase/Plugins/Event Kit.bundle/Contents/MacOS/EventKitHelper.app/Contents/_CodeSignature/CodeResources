@@ -17,7 +17,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yUEtYA/pCAslJqESuEuvhO696AQ=
+			t9+lWKIa/3bQwBptjyE8Qh7pncQ=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -31,6 +31,10 @@
 			<data>
 			MiLKDDnrUKr4EmuvhS5VQwxHGK8=
 			</data>
+			<key>hash2</key>
+			<data>
+			Oc8u4Ht7Mz58F50L9NeYpbcq9qTlhPUeZCcDu/pPyCg=
+			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
@@ -38,15 +42,15 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yUEtYA/pCAslJqESuEuvhO696AQ=
+			t9+lWKIa/3bQwBptjyE8Qh7pncQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			uItICpC9Wm6a2RcQ0s2xUk5CekpmTZN7PFu+2Z9vyuc=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
-		<key>embedded.provisionprofile</key>
-		<data>
-		WDvMvdegtwrooBMTM4h0YjTDJWc=
-		</data>
 	</dict>
 	<key>rules</key>
 	<dict>
