@@ -10,6 +10,9 @@
 
 BOOL setDate(NSDate *date, C_DATE &ParamDate, C_TIME &ParamTime);
 
+#import <EventKit/EventKit.h>
+id getItem(EKEventStore *sharedEventStore, NSString *identifier);
+
 // --- EK Store
 void EK_STORE_Commit(sLONG_PTR *pResult, PackagePtr pParams);
 

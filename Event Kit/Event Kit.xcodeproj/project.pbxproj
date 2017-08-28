@@ -430,7 +430,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_LINK_OBJC_RUNTIME = NO;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUGGING_SYMBOLS = YES;
@@ -472,7 +472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_LINK_OBJC_RUNTIME = NO;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = NO;
@@ -511,7 +511,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_LINK_OBJC_RUNTIME = NO;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = NO;
 				DEVELOPMENT_TEAM = Y69CWUC25B;

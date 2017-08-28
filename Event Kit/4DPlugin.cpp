@@ -309,8 +309,6 @@ void CommandDispatcher (PA_long32 pProcNum, sLONG_PTR *pResult, PackagePtr pPara
 
 // ----------------------------------- EK Store -----------------------------------
 
-#import <EventKit/EventKit.h>
-
 #pragma mark STORE
 
 void EK_STORE_Commit(sLONG_PTR *pResult, PackagePtr pParams)
@@ -781,7 +779,7 @@ void EK_OBJECT_ROLLBACK(sLONG_PTR *pResult, PackagePtr pParams)
 			[calendar rollback];
 			NSLog(@"rolled back calendar '%@'", identifier);
 		}else{
-			EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+			EKCalendarItem *item = getItem(sharedEventStore, identifier);
 			if(item){
 				[item rollback];
 				NSLog(@"rolled back item '%@'", identifier);
@@ -814,7 +812,7 @@ void EK_OBJECT_RESET(sLONG_PTR *pResult, PackagePtr pParams)
 			[calendar reset];
 			NSLog(@"resetted calendar '%@'", identifier);
 		}else{
-			EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+			EKCalendarItem *item = getItem(sharedEventStore, identifier);
 			if(item){
 				[item reset];
 				NSLog(@"resetted item '%@'", identifier);
@@ -848,7 +846,7 @@ void EK_OBJECT_REFRESH(sLONG_PTR *pResult, PackagePtr pParams)
 			[calendar refresh];
 			NSLog(@"refreshed calendar '%@'", identifier);
 		}else{
-			EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+			EKCalendarItem *item = getItem(sharedEventStore, identifier);
 			if(item){
 				[item refresh];
 				NSLog(@"refreshed item '%@'", identifier);
@@ -883,7 +881,7 @@ void EK_OBJECT_Has_changes(sLONG_PTR *pResult, PackagePtr pParams)
 			Param2.setIntValue([calendar hasChanges]);
 			returnValue.setIntValue(1);
 		}else{
-			EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+			EKCalendarItem *item = getItem(sharedEventStore, identifier);
 			if(item){
 				Param2.setIntValue([item hasChanges]);
 				returnValue.setIntValue(1);
@@ -920,7 +918,7 @@ void EK_OBJECT_Is_new(sLONG_PTR *pResult, PackagePtr pParams)
 			Param2.setIntValue([calendar isNew]);
 			returnValue.setIntValue(1);
 		}else{
-			EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+			EKCalendarItem *item = getItem(sharedEventStore, identifier);
 			if(item){
 				Param2.setIntValue([item isNew]);
 				returnValue.setIntValue(1);
@@ -939,12 +937,12 @@ void EK_OBJECT_Is_new(sLONG_PTR *pResult, PackagePtr pParams)
 
 // ------------------------------------ EK Item -----------------------------------
 
-#pragma mark ITEM
+#pragma mark SAVE / REMOVE
 
-BOOL saveEvent(EKEventStore *sharedEventStore, EKEvent *event)
+BOOL saveEvent(EKEventStore *sharedEventStore, EKEvent *event, BOOL commit = NO)
 {
 	NSError *error;
-	BOOL success = [sharedEventStore saveEvent:event span:EKSpanThisEvent commit:NO error:&error];
+	BOOL success = [sharedEventStore saveEvent:event span:EKSpanThisEvent commit:commit error:&error];
 	if(!success){
 		NSLog(@"event save failed: %@", [error description]);
 		return FALSE;
@@ -953,10 +951,10 @@ BOOL saveEvent(EKEventStore *sharedEventStore, EKEvent *event)
 	}
 }
 
-BOOL removeEvent(EKEventStore *sharedEventStore, EKEvent *event)
+BOOL removeEvent(EKEventStore *sharedEventStore, EKEvent *event, BOOL commit = NO)
 {
 	NSError *error;
-	BOOL success = [sharedEventStore removeEvent:event span:EKSpanThisEvent commit:NO error:&error];
+	BOOL success = [sharedEventStore removeEvent:event span:EKSpanThisEvent commit:commit error:&error];
 	
 	if(!success){
 		NSLog(@"event remove failed: %@", [error description]);
@@ -966,10 +964,10 @@ BOOL removeEvent(EKEventStore *sharedEventStore, EKEvent *event)
 	}
 }
 
-BOOL saveReminder(EKEventStore *sharedEventStore, EKReminder *reminder)
+BOOL saveReminder(EKEventStore *sharedEventStore, EKReminder *reminder, BOOL commit = NO)
 {
 	NSError *error;
-	BOOL success = [sharedEventStore saveReminder:reminder commit:NO error:&error];
+	BOOL success = [sharedEventStore saveReminder:reminder commit:commit error:&error];
 	
 	if(!success){
 		NSLog(@"reminder save failed: %@", [error description]);
@@ -979,10 +977,10 @@ BOOL saveReminder(EKEventStore *sharedEventStore, EKReminder *reminder)
 	}
 }
 
-BOOL removeReminder(EKEventStore *sharedEventStore, EKReminder *reminder)
+BOOL removeReminder(EKEventStore *sharedEventStore, EKReminder *reminder, BOOL commit = NO)
 {
 	NSError *error;
-	BOOL success = [sharedEventStore removeReminder:reminder commit:NO error:&error];
+	BOOL success = [sharedEventStore removeReminder:reminder commit:commit error:&error];
 	
 	if(!success){
 		NSLog(@"reminder remove failed: %@", [error description]);
@@ -992,22 +990,22 @@ BOOL removeReminder(EKEventStore *sharedEventStore, EKReminder *reminder)
 	}
 }
 
-BOOL saveItem(EKEventStore *sharedEventStore, EKCalendarItem *item)
+BOOL saveItem(EKEventStore *sharedEventStore, EKCalendarItem *item, BOOL commit = NO)
 {
 	if(item)
 	{
 		if([item isKindOfClass:[EKEvent class]])
-			if(saveEvent(sharedEventStore, (EKEvent *)item))
+			if(saveEvent(sharedEventStore, (EKEvent *)item, commit))
 				return TRUE;
 		
 		if([item isKindOfClass:[EKReminder class]])
-			if(saveReminder(sharedEventStore, (EKReminder *)item))
+			if(saveReminder(sharedEventStore, (EKReminder *)item, commit))
 				return TRUE;
 	}
 	return FALSE;
 }
 
-#pragma mark -
+#pragma mark ITEM
 
 void EK_ITEM_Get_attendees(sLONG_PTR *pResult, PackagePtr pParams)
 {
@@ -1019,7 +1017,7 @@ void EK_ITEM_Get_attendees(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1091,7 +1089,7 @@ void EK_ITEM_Get_calendar(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1119,7 +1117,7 @@ void EK_ITEM_Set_calendar(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *calendar = Param2.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1130,7 +1128,7 @@ void EK_ITEM_Set_calendar(sLONG_PTR *pResult, PackagePtr pParams)
 			NSLog(@"'%@' is not a calendar", calendar);
 		}else{
 			item.calendar = itemCalendar;
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 		}
 	}
 	
@@ -1151,7 +1149,7 @@ void EK_ITEM_Get_title(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1179,13 +1177,13 @@ void EK_ITEM_Set_title(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *title = Param2.copyUTF16String();
 
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
 	}else{
 		item.title = title;
-		returnValue.setIntValue(saveItem(sharedEventStore, item));
+		returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 	}
 	
 	[sharedEventStore release];
@@ -1205,7 +1203,7 @@ void EK_ITEM_Get_location(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1233,13 +1231,13 @@ void EK_ITEM_Set_location(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *location = Param2.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
 	}else{
 		item.location = location;
-		returnValue.setIntValue(saveItem(sharedEventStore, item));
+		returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 	}
 	
 	[sharedEventStore release];
@@ -1259,7 +1257,7 @@ void EK_ITEM_Get_url(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1287,7 +1285,7 @@ void EK_ITEM_Set_url(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *url = Param2.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1295,7 +1293,7 @@ void EK_ITEM_Set_url(sLONG_PTR *pResult, PackagePtr pParams)
 		NSURL *URL = [NSURL URLWithString:url];
 		if(URL){
 			item.URL = URL;
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 		}
 	}
 	
@@ -1316,7 +1314,7 @@ void EK_ITEM_Get_notes(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1344,13 +1342,13 @@ void EK_ITEM_Set_notes(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *notes = Param2.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
 	}else{
 		item.notes = notes;
-		returnValue.setIntValue(saveItem(sharedEventStore, item));
+		returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 	}
 	
 	[sharedEventStore release];
@@ -1370,7 +1368,7 @@ void EK_ITEM_Get_alarms(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1520,7 +1518,7 @@ void EK_ITEM_Get_rules(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1689,7 +1687,7 @@ void EK_ITEM_Get_timezone(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1718,7 +1716,7 @@ void EK_ITEM_Set_timezone(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *zone = Param2.copyUTF16String();
 
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1726,7 +1724,7 @@ void EK_ITEM_Set_timezone(sLONG_PTR *pResult, PackagePtr pParams)
 		NSTimeZone *tz = [NSTimeZone timeZoneWithAbbreviation:zone];
 		if(tz){
 			item.timeZone = tz;
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 		}
 	}
 	
@@ -1747,7 +1745,7 @@ void EK_ITEM_Get_attendee_names(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	Param2.setSize(1);
 	
@@ -1780,7 +1778,7 @@ void EK_ITEM_Get_modification_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' is not a calendar item", identifier);
@@ -1822,9 +1820,10 @@ void EK_REMINDER_Create(sLONG_PTR *pResult, PackagePtr pParams)
 		EKReminder *reminder = [EKReminder reminderWithEventStore:sharedEventStore];
 		reminder.calendar = calendar;
 		
-		if(saveReminder(sharedEventStore, reminder))
+		if(saveReminder(sharedEventStore, reminder, YES))
 		{
-			returnValue.setUTF16String([reminder calendarItemIdentifier]);
+//			returnValue.setUTF16String([reminder calendarItemIdentifier]);
+			returnValue.setUTF16String([reminder calendarItemExternalIdentifier]);
 		}
 	}
 	
@@ -1848,7 +1847,7 @@ void EK_REMINDER_Set_start_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *date = copyDate(Param2, Param3);
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -1866,7 +1865,7 @@ void EK_REMINDER_Set_start_date(sLONG_PTR *pResult, PackagePtr pParams)
 			NSCalendarCalendarUnit|
 			NSTimeZoneCalendarUnit;
 			reminder.startDateComponents = [gregorianCalendar components:dateComponentUnits fromDate:date];
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 			[gregorianCalendar release];
 			
 		}else{
@@ -1892,7 +1891,7 @@ void EK_REMINDER_Get_start_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -1938,7 +1937,7 @@ void EK_REMINDER_Set_due_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *date = copyDate(Param2, Param3);
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -1956,7 +1955,7 @@ void EK_REMINDER_Set_due_date(sLONG_PTR *pResult, PackagePtr pParams)
 			NSCalendarCalendarUnit|
 			NSTimeZoneCalendarUnit;
 			reminder.dueDateComponents = [gregorianCalendar components:dateComponentUnits fromDate:date];
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 			[gregorianCalendar release];
 			
 		}else{
@@ -1982,7 +1981,7 @@ void EK_REMINDER_Get_due_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2028,7 +2027,7 @@ void EK_REMINDER_Set_completed_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *date = copyDate(Param2, Param3);
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2037,7 +2036,7 @@ void EK_REMINDER_Set_completed_date(sLONG_PTR *pResult, PackagePtr pParams)
 			
 			EKReminder *reminder = (EKReminder *)item;
 			reminder.completionDate = date;
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 			
 		}else{
 			NSLog(@"'%@' is not a reminder", identifier);
@@ -2062,7 +2061,7 @@ void EK_REMINDER_Get_completed_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2093,7 +2092,7 @@ void EK_REMINDER_Remove(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2102,7 +2101,7 @@ void EK_REMINDER_Remove(sLONG_PTR *pResult, PackagePtr pParams)
 			
 			EKReminder *reminder = item;
 			
-			returnValue.setIntValue(removeReminder(sharedEventStore, reminder));
+			returnValue.setIntValue(removeReminder(sharedEventStore, reminder, YES));
 			
 		}else{
 			NSLog(@"'%@' is not a reminder", identifier);
@@ -2124,13 +2123,13 @@ void EK_REMINDER_Save(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
 		
-		returnValue.setIntValue(saveItem(sharedEventStore, item));
+		returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 		
 	}
 	
@@ -2169,9 +2168,10 @@ void EK_EVENT_Create(sLONG_PTR *pResult, PackagePtr pParams)
 		event.startDate = [NSDate date];
 		event.endDate = [NSDate date];
 		
-		if(saveEvent(sharedEventStore, event))
+		if(saveEvent(sharedEventStore, event, YES))
 		{
-			returnValue.setUTF16String([event calendarItemIdentifier]);
+//			returnValue.setUTF16String([event calendarItemIdentifier]);
+			returnValue.setUTF16String([event calendarItemExternalIdentifier]);
 		}
 	}
 	
@@ -2195,7 +2195,7 @@ void EK_EVENT_Set_start_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *date = copyDate(Param2, Param3);
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2204,7 +2204,7 @@ void EK_EVENT_Set_start_date(sLONG_PTR *pResult, PackagePtr pParams)
 			
 			EKEvent *event = item;
 			event.startDate = date;
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 			
 		}else{
 			NSLog(@"'%@' is not an event", identifier);
@@ -2229,7 +2229,7 @@ void EK_EVENT_Get_start_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2267,7 +2267,7 @@ void EK_EVENT_Set_end_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *date = copyDate(Param2, Param3);
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2276,7 +2276,7 @@ void EK_EVENT_Set_end_date(sLONG_PTR *pResult, PackagePtr pParams)
 			
 			EKEvent *event = item;
 			event.endDate = date;
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 			
 		}else{
 			NSLog(@"'%@' is not an event", identifier);
@@ -2301,7 +2301,7 @@ void EK_EVENT_Get_end_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2336,7 +2336,7 @@ void EK_EVENT_Get_occurrence_date(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2370,7 +2370,7 @@ void EK_EVENT_Get_status(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2403,7 +2403,7 @@ void EK_EVENT_Get_all_day(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2437,7 +2437,7 @@ void EK_EVENT_Set_all_day(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2446,7 +2446,7 @@ void EK_EVENT_Set_all_day(sLONG_PTR *pResult, PackagePtr pParams)
 			
 			EKEvent *event = item;
 			event.allDay = Param2.getIntValue();
-			returnValue.setIntValue(saveItem(sharedEventStore, item));
+			returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 			
 		}else{
 			NSLog(@"'%@' is not an event", identifier);
@@ -2470,7 +2470,7 @@ void EK_EVENT_Get_organizer_name(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	id item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	id item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2506,13 +2506,13 @@ void EK_EVENT_Save(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
 	}else{
 		
-		returnValue.setIntValue(saveItem(sharedEventStore, item));
+		returnValue.setIntValue(saveItem(sharedEventStore, item, YES));
 
 	}
 	
@@ -2531,7 +2531,7 @@ void EK_EVENT_Remove(sLONG_PTR *pResult, PackagePtr pParams)
 	NSString *identifier = Param1.copyUTF16String();
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
-	EKCalendarItem *item = [sharedEventStore calendarItemWithIdentifier:identifier];
+	EKCalendarItem *item = getItem(sharedEventStore, identifier);
 	
 	if(!item){
 		NSLog(@"'%@' does not exist", identifier);
@@ -2540,7 +2540,7 @@ void EK_EVENT_Remove(sLONG_PTR *pResult, PackagePtr pParams)
 			
 			EKEvent *event = (EKEvent *)item;
 			
-			returnValue.setIntValue(removeEvent(sharedEventStore, event));
+			returnValue.setIntValue(removeEvent(sharedEventStore, event, YES));
 			
 		}else{
 			NSLog(@"'%@' is not an event", identifier);
@@ -2636,6 +2636,35 @@ NSArray * copyArray(ARRAY_TEXT &ParamArray)
 	return array;
 }
 
+NSArray *getCalendars(EKEventStore *sharedEventStore, ARRAY_TEXT &ParamArray)
+{
+	NSUInteger capacity = ParamArray.getSize();
+	NSMutableArray *array = [[NSMutableArray alloc]initWithCapacity:capacity];
+	
+	if(array){
+		for(unsigned int i = 0; i < ParamArray.getSize(); ++i){
+			
+			NSString *item = ParamArray.copyUTF16StringAtIndex(i);
+			EKCalendar *calendar = [sharedEventStore calendarWithIdentifier:item];
+			if(calendar)
+			{
+				[array addObject:calendar];
+			}
+			[item release];
+		}
+	}
+	return array;
+}
+
+id getItem(EKEventStore *sharedEventStore, NSString *identifier)
+{
+	EKCalendarItem *item = nil;
+	NSArray *items = [sharedEventStore calendarItemsWithExternalIdentifier:identifier];
+	if([items count]) item = [items objectAtIndex:0];
+	
+	return item;
+}
+
 #pragma mark -
 
 void EK_QUERY_EVENT(sLONG_PTR *pResult, PackagePtr pParams)
@@ -2656,9 +2685,12 @@ void EK_QUERY_EVENT(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *endDate = copyDate(Param3, Param4);
 	
 	Param5.fromParamAtIndex(pParams, 5);
-	NSArray *calendars = copyArray(Param5);
-	
+
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
+	NSArray *calendars = getCalendars(sharedEventStore, Param5);
+	
+//	NSLog(@"[calendars count] %i", (int)[calendars count]);
+	
 	NSPredicate *predicate = [sharedEventStore predicateForEventsWithStartDate:startDate endDate:endDate calendars:[calendars count] ? calendars : nil];
 	NSArray *events = [sharedEventStore eventsMatchingPredicate:predicate];
 
@@ -2666,8 +2698,10 @@ void EK_QUERY_EVENT(sLONG_PTR *pResult, PackagePtr pParams)
 	for(unsigned int i = 0; i < [events count]; ++i)
 	{
 		EKEvent *event = [events objectAtIndex:i];
-		Param6.appendUTF16String([event eventIdentifier]);
+//		Param6.appendUTF16String([event calendarItemIdentifier]);
+		Param6.appendUTF16String([event calendarItemExternalIdentifier]);
 	}
+	
 	Param6.toParamAtIndex(pParams, 6);
 	
 	[sharedEventStore release];
@@ -2694,11 +2728,11 @@ void EK_QUERY_COMPLETE_REMINDER(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *endDate = copyDate(Param3, Param4);
 	
 	Param5.fromParamAtIndex(pParams, 5);
-	NSArray *calendars = copyArray(Param5);
 	
 	dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
+	NSArray *calendars = getCalendars(sharedEventStore, Param5);
 	NSPredicate *predicate = [sharedEventStore predicateForCompletedRemindersWithCompletionDateStarting:startDate ending:endDate calendars:[calendars count] ? calendars : nil];
 	
 	NSMutableArray *reminderIdsForQuery = [[NSMutableArray alloc]init];
@@ -2708,7 +2742,8 @@ void EK_QUERY_COMPLETE_REMINDER(sLONG_PTR *pResult, PackagePtr pParams)
 		
 		for (EKReminder *reminder in reminders)
 		{
-			[reminderIdsForQuery addObject:reminder.calendarItemIdentifier];
+//			[reminderIdsForQuery addObject:reminder.calendarItemIdentifier];
+			[reminderIdsForQuery addObject:reminder.calendarItemExternalIdentifier];
 		}
 		
 		dispatch_semaphore_signal(sema);
@@ -2745,11 +2780,11 @@ void EK_QUERY_INCOMPLETE_REMINDER(sLONG_PTR *pResult, PackagePtr pParams)
 	NSDate *endDate = copyDate(Param3, Param4);
 	
 	Param5.fromParamAtIndex(pParams, 5);
-	NSArray *calendars = copyArray(Param5);
 	
 	dispatch_semaphore_t sema = dispatch_semaphore_create(0);
 	
 	EKEventStore *sharedEventStore = [[EKEventStore alloc]initWithAccessToEntityTypes:EKEntityMaskEvent|EKEntityMaskReminder];
+	NSArray *calendars = getCalendars(sharedEventStore, Param5);
 	NSPredicate *predicate = [sharedEventStore predicateForIncompleteRemindersWithDueDateStarting:startDate ending:endDate calendars:[calendars count] ? calendars : nil];
 	
 	NSMutableArray *reminderIdsForQuery = [[NSMutableArray alloc]init];
@@ -2759,7 +2794,8 @@ void EK_QUERY_INCOMPLETE_REMINDER(sLONG_PTR *pResult, PackagePtr pParams)
 		
 		for (EKReminder *reminder in reminders)
 		{
-			[reminderIdsForQuery addObject:reminder.calendarItemIdentifier];
+//			[reminderIdsForQuery addObject:reminder.calendarItemIdentifier];
+			[reminderIdsForQuery addObject:reminder.calendarItemExternalIdentifier];
 		}
 		
 		dispatch_semaphore_signal(sema);
