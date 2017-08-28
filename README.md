@@ -21,6 +21,10 @@ Please consult the [wiki](https://github.com/miyako/4d-plugin-event-kit/wiki).
 
 This is the 64-bit branch.
 
+**Change 1**: Any commands that create, update, or delete an item is now commited to the data store immediately. 
+
+**Change 2**: ``calendarItemExternalIdentifier`` is now used to identify and item, instead of ``calendarItemIdentifier``. 
+
 ## Remarks
 
 Using APIs introduced in 10.8 and deprecated in 10.9.
