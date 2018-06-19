@@ -16,6 +16,14 @@ Implementation of 10.8 SDK [Event Kit](https://developer.apple.com/library/ios/d
 
 This is the old, 32-bit branch.
 
+### Releases
+
+[``dmg``](https://github.com/miyako/4d-plugin-event-kit/releases/download/2.0-dmg/Event.Kit.dmg)
+
+[``pkg``](https://github.com/miyako/4d-plugin-event-kit/releases/download/2.0-pkg/Event.Kit.pkg)
+
+* ``pkg`` will be installed under ``Applications``
+
 How to use
 ----------
 Please consult the [wiki](https://github.com/miyako/4d-plugin-event-kit/wiki).
