@@ -13,6 +13,8 @@ Mac OS X 10.8 or later.
 
 Implementation of 10.8 SDK [Event Kit](https://developer.apple.com/library/ios/documentation/EventKit/Reference/EventKitFrameworkRef/_index.html) by Apple.
 
+**Note**: For built applications, the plugin might be slowed down if code asignature is invalid. If you think this might be happening, you might want to use the ``--deep`` option for ``codesign``.
+
 ### How to use
 
 Please consult the [wiki](https://github.com/miyako/4d-plugin-event-kit/wiki).
