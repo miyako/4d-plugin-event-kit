@@ -20,3 +20,8 @@ Due to enhanced security requirements from Apple, the app (not the plugin) must 
 **Note**: 4D.app itself is signed, but without the above property list entitlements. In order to use the plugin with 4D (interpreted or compiled) you must sign 4D.app with your own Apple Developer certificate.
 
 The command ``EK Request permisson`` returns a status object object with an ``errorMessage`` property when ``success`` is ``false``.
+
+```
+$status:=EK Request permisson (EK Calendar Event)
+$status:=EK Request permisson (EK Calendar Reminder)
+```
