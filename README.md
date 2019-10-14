@@ -18,3 +18,5 @@ A plugin to read and write calendars, events and reminders in 4D.
 Due to enhanced security requirements from Apple, the app (not the plugin) must be signed with [Calendars](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_personal-information_calendars?language=objc) and [Hardened Runtime](https://developer.apple.com/documentation/bundleresources/entitlements?language=objc) entitlements. The [NSCalendarsUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nscalendarsusagedescription?language=objc) property list key must also be present.
 
 **Note**: 4D.app itself is signed, but without the above property list entitlements. In order to use the plugin with 4D (interpreted or compiled) you must sign 4D.app with your own Apple Developer certificate.
+
+The command ``EK Request permisson`` returns a status object object with an ``errorMessage`` property when ``success`` is ``false``.
