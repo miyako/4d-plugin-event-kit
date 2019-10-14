@@ -25,3 +25,14 @@ The command ``EK Request permisson`` returns a status object object with an ``er
 $status:=EK Request permisson (EK Calendar Event)
 $status:=EK Request permisson (EK Calendar Reminder)
 ```
+
+#### Remarks
+
+Unimplemented commands:
+
+* EK_ITEM_Set_alarms
+* EK_ITEM_Set_rules
+
+Commands that return arrays are thread unsafe.
+
+[manifest.json](https://github.com/miyako/4d-plugin-event-kit/blob/master/event-kit/manifest.json)
