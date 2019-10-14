@@ -1,0 +1,331 @@
+{
+    "name": "Event Kit",
+    "id": 20000,
+    "commands": [
+        {
+            "theme": "EK Store",
+            "syntax": "EK STORE Commit:L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Source",
+            "syntax": "EK SOURCE Get type(&T;&L):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Source",
+            "syntax": "EK SOURCE Get title(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Source",
+            "syntax": "EK SOURCE LIST(&Y)",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Source",
+            "syntax": "EK SOURCE Calendar list(&T;&Y;&L):L",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Get rgb color(&T;&8;&8;&8):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Set rgb color(&T;&8;&8;&8):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Remove(&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Save(&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Get default(&L;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Get type(&T;&L):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR LIST(&Y;&L)",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Create(&T;&L):T",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Get title(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Set title(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Calendar",
+            "syntax": "EK CALENDAR Get source(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Object",
+            "syntax": "EK OBJECT ROLLBACK(&T)",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Object",
+            "syntax": "EK OBJECT RESET(&T)",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Object",
+            "syntax": "EK OBJECT REFRESH(&T)",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Object",
+            "syntax": "EK OBJECT Has changes(&T;&L):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Object",
+            "syntax": "EK OBJECT Is new(&T;&L):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get attendees(&T;&Y):L",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get calendar(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get title(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set title(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get location(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set location(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get url(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set url(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get notes(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set notes(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get alarms(&T;&Y):L",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set alarms(&T;&Y):L",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get rules(&T;&Y):L",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set rules(&T;&Y):L",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get timezone(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set timezone(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Set calendar(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get attendee names(&T;&Y):L",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Item",
+            "syntax": "EK ITEM Get modification date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Create(&T):T",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Set start date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Get start date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Set due date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Get due date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Set completed date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Get completed date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Remove(&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Reminder",
+            "syntax": "EK REMINDER Save(&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Create(&T):T",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Set start date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Get start date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Set end date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Get end date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Get occurrence date(&T;&D;&H):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Get status(&T;&L):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Get all day(&T;&L):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Set all day(&T;&L):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Get organizer name(&T;&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Save(&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Event",
+            "syntax": "EK EVENT Remove(&T):L",
+            "threadSafe": true
+        },
+        {
+            "theme": "EK Query",
+            "syntax": "EK QUERY EVENT(&D;&H;&D;&H;&Y;&Y)",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Query",
+            "syntax": "EK QUERY COMPLETE REMINDER(&D;&H;&D;&H;&Y;&Y)",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Query",
+            "syntax": "EK QUERY INCOMPLETE REMINDER(&D;&H;&D;&H;&Y;&Y)",
+            "threadSafe": false
+        },
+        {
+            "theme": "EK Permission",
+            "syntax": "EK Request permisson(&L):J",
+            "threadSafe": true
+        }
+    ]
+}
