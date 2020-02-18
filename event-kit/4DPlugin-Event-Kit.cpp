@@ -17,215 +17,215 @@ bool request_permission_granted_for_reminders = false;
 
 void PluginMain(PA_long32 selector, PA_PluginParameters params) {
     
-	try
-	{
+    try
+    {
         switch(selector)
         {
-			// --- Event Kit
-            
-			case 1 :
-				EK_STORE_Commit(params);
-				break;
-			case 2 :
-				EK_SOURCE_Get_type(params);
-				break;
-			case 3 :
-				EK_SOURCE_Get_title(params);
-				break;
-			case 4 :
-				EK_SOURCE_LIST(params);
-				break;
-			case 5 :
-				EK_SOURCE_Calendar_list(params);
-				break;
-			case 6 :
-				EK_CALENDAR_Get_rgb_color(params);
-				break;
-			case 7 :
-				EK_CALENDAR_Set_rgb_color(params);
-				break;
-			case 8 :
-				EK_CALENDAR_Remove(params);
-				break;
-			case 9 :
-				EK_CALENDAR_Save(params);
-				break;
-			case 10 :
-				EK_CALENDAR_Get_default(params);
-				break;
-			case 11 :
-				EK_CALENDAR_Get_type(params);
-				break;
-			case 12 :
-				EK_CALENDAR_LIST(params);
-				break;
-			case 13 :
-				EK_CALENDAR_Create(params);
-				break;
-			case 14 :
-				EK_CALENDAR_Get_title(params);
-				break;
-			case 15 :
-				EK_CALENDAR_Set_title(params);
-				break;
-			case 16 :
-				EK_CALENDAR_Get_source(params);
-				break;
-			case 17 :
-				EK_OBJECT_ROLLBACK(params);
-				break;
-			case 18 :
-				EK_OBJECT_RESET(params);
-				break;
-			case 19 :
-				EK_OBJECT_REFRESH(params);
-				break;
-			case 20 :
-				EK_OBJECT_Has_changes(params);
-				break;
-			case 21 :
-				EK_OBJECT_Is_new(params);
-				break;
-			case 22 :
-				EK_ITEM_Get_attendees(params);
-				break;
-			case 23 :
-				EK_ITEM_Get_calendar(params);
-				break;
-			case 24 :
-				EK_ITEM_Get_title(params);
-				break;
-			case 25 :
-				EK_ITEM_Set_title(params);
-				break;
-			case 26 :
-				EK_ITEM_Get_location(params);
-				break;
-			case 27 :
-				EK_ITEM_Set_location(params);
-				break;
-			case 28 :
-				EK_ITEM_Get_url(params);
-				break;
-			case 29 :
-				EK_ITEM_Set_url(params);
-				break;
-			case 30 :
-				EK_ITEM_Get_notes(params);
-				break;
-			case 31 :
-				EK_ITEM_Set_notes(params);
-				break;
-			case 32 :
-				EK_ITEM_Get_alarms(params);
-				break;
-			case 33 :
-				EK_ITEM_Set_alarms(params);
-				break;
-			case 34 :
-				EK_ITEM_Get_rules(params);
-				break;
-			case 35 :
-				EK_ITEM_Set_rules(params);
-				break;
-			case 36 :
-				EK_ITEM_Get_timezone(params);
-				break;
-			case 37 :
-				EK_ITEM_Set_timezone(params);
-				break;
-			case 38 :
-				EK_ITEM_Set_calendar(params);
-				break;
-			case 39 :
-				EK_ITEM_Get_attendee_names(params);
-				break;
-			case 40 :
-				EK_ITEM_Get_modification_date(params);
-				break;
-			case 41 :
-				EK_REMINDER_Create(params);
-				break;
-			case 42 :
-				EK_REMINDER_Set_start_date(params);
-				break;
-			case 43 :
-				EK_REMINDER_Get_start_date(params);
-				break;
-			case 44 :
-				EK_REMINDER_Set_due_date(params);
-				break;
-			case 45 :
-				EK_REMINDER_Get_due_date(params);
-				break;
-			case 46 :
-				EK_REMINDER_Set_completed_date(params);
-				break;
-			case 47 :
-				EK_REMINDER_Get_completed_date(params);
-				break;
-			case 48 :
-				EK_REMINDER_Remove(params);
-				break;
-			case 49 :
-				EK_REMINDER_Save(params);
-				break;
-			case 50 :
-				EK_EVENT_Create(params);
-				break;
-			case 51 :
-				EK_EVENT_Set_start_date(params);
-				break;
-			case 52 :
-				EK_EVENT_Get_start_date(params);
-				break;
-			case 53 :
-				EK_EVENT_Set_end_date(params);
-				break;
-			case 54 :
-				EK_EVENT_Get_end_date(params);
-				break;
-			case 55 :
-				EK_EVENT_Get_occurrence_date(params);
-				break;
-			case 56 :
-				EK_EVENT_Get_status(params);
-				break;
-			case 57 :
-				EK_EVENT_Get_all_day(params);
-				break;
-			case 58 :
-				EK_EVENT_Set_all_day(params);
-				break;
-			case 59 :
-				EK_EVENT_Get_organizer_name(params);
-				break;
-			case 60 :
-				EK_EVENT_Save(params);
-				break;
-			case 61 :
-				EK_EVENT_Remove(params);
-				break;
-			case 62 :
-				EK_QUERY_EVENT(params);
-				break;
-			case 63 :
-				EK_QUERY_COMPLETE_REMINDER(params);
-				break;
-			case 64 :
-				EK_QUERY_INCOMPLETE_REMINDER(params);
-				break;
+                // --- Event Kit
+                
+            case 1 :
+                EK_STORE_Commit(params);
+                break;
+            case 2 :
+                EK_SOURCE_Get_type(params);
+                break;
+            case 3 :
+                EK_SOURCE_Get_title(params);
+                break;
+            case 4 :
+                EK_SOURCE_LIST(params);
+                break;
+            case 5 :
+                EK_SOURCE_Calendar_list(params);
+                break;
+            case 6 :
+                EK_CALENDAR_Get_rgb_color(params);
+                break;
+            case 7 :
+                EK_CALENDAR_Set_rgb_color(params);
+                break;
+            case 8 :
+                EK_CALENDAR_Remove(params);
+                break;
+            case 9 :
+                EK_CALENDAR_Save(params);
+                break;
+            case 10 :
+                EK_CALENDAR_Get_default(params);
+                break;
+            case 11 :
+                EK_CALENDAR_Get_type(params);
+                break;
+            case 12 :
+                EK_CALENDAR_LIST(params);
+                break;
+            case 13 :
+                EK_CALENDAR_Create(params);
+                break;
+            case 14 :
+                EK_CALENDAR_Get_title(params);
+                break;
+            case 15 :
+                EK_CALENDAR_Set_title(params);
+                break;
+            case 16 :
+                EK_CALENDAR_Get_source(params);
+                break;
+            case 17 :
+                EK_OBJECT_ROLLBACK(params);
+                break;
+            case 18 :
+                EK_OBJECT_RESET(params);
+                break;
+            case 19 :
+                EK_OBJECT_REFRESH(params);
+                break;
+            case 20 :
+                EK_OBJECT_Has_changes(params);
+                break;
+            case 21 :
+                EK_OBJECT_Is_new(params);
+                break;
+            case 22 :
+                EK_ITEM_Get_attendees(params);
+                break;
+            case 23 :
+                EK_ITEM_Get_calendar(params);
+                break;
+            case 24 :
+                EK_ITEM_Get_title(params);
+                break;
+            case 25 :
+                EK_ITEM_Set_title(params);
+                break;
+            case 26 :
+                EK_ITEM_Get_location(params);
+                break;
+            case 27 :
+                EK_ITEM_Set_location(params);
+                break;
+            case 28 :
+                EK_ITEM_Get_url(params);
+                break;
+            case 29 :
+                EK_ITEM_Set_url(params);
+                break;
+            case 30 :
+                EK_ITEM_Get_notes(params);
+                break;
+            case 31 :
+                EK_ITEM_Set_notes(params);
+                break;
+            case 32 :
+                EK_ITEM_Get_alarms(params);
+                break;
+            case 33 :
+                EK_ITEM_Set_alarms(params);
+                break;
+            case 34 :
+                EK_ITEM_Get_rules(params);
+                break;
+            case 35 :
+                EK_ITEM_Set_rules(params);
+                break;
+            case 36 :
+                EK_ITEM_Get_timezone(params);
+                break;
+            case 37 :
+                EK_ITEM_Set_timezone(params);
+                break;
+            case 38 :
+                EK_ITEM_Set_calendar(params);
+                break;
+            case 39 :
+                EK_ITEM_Get_attendee_names(params);
+                break;
+            case 40 :
+                EK_ITEM_Get_modification_date(params);
+                break;
+            case 41 :
+                EK_REMINDER_Create(params);
+                break;
+            case 42 :
+                EK_REMINDER_Set_start_date(params);
+                break;
+            case 43 :
+                EK_REMINDER_Get_start_date(params);
+                break;
+            case 44 :
+                EK_REMINDER_Set_due_date(params);
+                break;
+            case 45 :
+                EK_REMINDER_Get_due_date(params);
+                break;
+            case 46 :
+                EK_REMINDER_Set_completed_date(params);
+                break;
+            case 47 :
+                EK_REMINDER_Get_completed_date(params);
+                break;
+            case 48 :
+                EK_REMINDER_Remove(params);
+                break;
+            case 49 :
+                EK_REMINDER_Save(params);
+                break;
+            case 50 :
+                EK_EVENT_Create(params);
+                break;
+            case 51 :
+                EK_EVENT_Set_start_date(params);
+                break;
+            case 52 :
+                EK_EVENT_Get_start_date(params);
+                break;
+            case 53 :
+                EK_EVENT_Set_end_date(params);
+                break;
+            case 54 :
+                EK_EVENT_Get_end_date(params);
+                break;
+            case 55 :
+                EK_EVENT_Get_occurrence_date(params);
+                break;
+            case 56 :
+                EK_EVENT_Get_status(params);
+                break;
+            case 57 :
+                EK_EVENT_Get_all_day(params);
+                break;
+            case 58 :
+                EK_EVENT_Set_all_day(params);
+                break;
+            case 59 :
+                EK_EVENT_Get_organizer_name(params);
+                break;
+            case 60 :
+                EK_EVENT_Save(params);
+                break;
+            case 61 :
+                EK_EVENT_Remove(params);
+                break;
+            case 62 :
+                EK_QUERY_EVENT(params);
+                break;
+            case 63 :
+                EK_QUERY_COMPLETE_REMINDER(params);
+                break;
+            case 64 :
+                EK_QUERY_INCOMPLETE_REMINDER(params);
+                break;
             case 65 :
                 EK_Request_permisson(params);
-            break;
-            
+                break;
+                
         }
-
-	}
-	catch(...)
-	{
-
-	}
+        
+    }
+    catch(...)
+    {
+        
+    }
 }
 
 #pragma mark STORE
@@ -601,14 +601,14 @@ void EK_CALENDAR_LIST(PA_PluginParameters params) {
     
     ARRAY_TEXT Param1;
     C_LONGINT Param2;
+    
     Param2.fromParamAtIndex(pParams, 2);
     
     switch (Param2.getIntValue())
     {
         case 1://reminders
         if(request_permission_granted_for_reminders) {
-            PA_Unistring *u = PA_GetStringParameter(params, 1);
-            NSString *identifier = [[NSString alloc]initWithCharacters:u->fString length:u->fLength];
+
             EKEventStore *sharedEventStore = [[EKEventStore alloc]init];
             
             NSArray *calendars = [sharedEventStore calendarsForEntityType:EKEntityTypeReminder];
@@ -621,14 +621,12 @@ void EK_CALENDAR_LIST(PA_PluginParameters params) {
             Param1.toParamAtIndex(pParams, 1);
             
             [sharedEventStore release];
-            [identifier release];
         }
         break;
         
         default:
         if(request_permission_granted_for_events) {
-            PA_Unistring *u = PA_GetStringParameter(params, 1);
-            NSString *identifier = [[NSString alloc]initWithCharacters:u->fString length:u->fLength];
+
             EKEventStore *sharedEventStore = [[EKEventStore alloc]init];
             
             NSArray *calendars = [sharedEventStore calendarsForEntityType:EKEntityTypeEvent];
@@ -641,7 +639,6 @@ void EK_CALENDAR_LIST(PA_PluginParameters params) {
             Param1.toParamAtIndex(pParams, 1);
             
             [sharedEventStore release];
-            [identifier release];
         }
         break;
     }
